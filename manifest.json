@@ -1,0 +1,73 @@
+{
+  "manifest_version": 2,
+
+  "name": "图片工具",
+  "description": "替换缩略图为原始图片，点击图片并下载",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "tabs", "https://ajax.googleapis.com/", "*://*/", "downloads"],
+
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["<all_urls>"],
+      "js": ["logger.js", "jquery.min.js", "utils.js", "popup.js", "init.js"],
+      "css": ["contentScripts/css/style.css"]
+    },
+    {
+      "matches": ["*://www.3ajiepai.com/*", "*://www.3ajp.net/*"],
+      "js": ["aaajiepai-show-download-btn.js"]
+    },
+    {
+      "matches": ["https://twitter.com/"],
+      "js": ["twitter-show-download-btn.js"]
+    },
+    {
+      "matches": ["https://www.flickr.com/*"],
+      "js": ["constants.js", "constructor.js", "flickr-remove-spaceball.js"]
+    },
+    {
+      "matches": ["https://www.meitulu.com/item/*"],
+      "js": ["meitulu-append-photos.js"]
+    },
+    {
+      "matches": ["http://www.jdlingyu.mobi/*/"],
+      "js": ["jdlingyu-show-download-btn.js"]
+    },
+    {
+      "matches": ["http://www.poco.cn/*"],
+      "js": ["poco/download-photo.js"]
+    },
+    {
+      "matches": ["*://www.shevx.com/*"],
+      "js": ["shevx/load-large-pic.js"]
+    },
+    {
+      "matches": ["*://*.tu963.net/*"],
+      "js": ["menuActions/clickImage.js"]
+    },
+    {
+      "matches": ["*://tuchong.com/*", "*://*.tuchong.com/*"],
+      "js": ["tuchong-show-download-btn.js"]
+    },
+    {
+      "matches": ["*://weibo.com/*"],
+      "js": ["weibo.com/page-show-download-btn.js", "weibo.com/press-d-to-download-photo.js"]
+    },
+    {
+      "matches": ["*://photo.weibo.com/*"],
+      "js": ["photo.weibo.com/photos-show-download-btn.js"]
+    }
+  ],
+
+  "web_accessible_resources": ["detail.tmall.com/download.png"],
+
+  "background": {
+    "scripts": ["eventPage.js"],
+    "persistent": false
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 400px;
+      }
+    </style>
+
+    <!--<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>-->
+    <script src="jquery.min.js"></script>
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="status"></div>
+    <img id="image-result" hidden />
+    <ul>
+      <li><a class="w-bcy" href="#">bcy.net</a></li>
+      <li><a class="w-autohome" href="#">autohome.com.cn</a></li>
+      <li><a class="w-baidutieba" href="#">tieba.baidu.com</a></li>
+      <li><a class="w-aaajiepai-goto-slider" href="#">[aaajiepai.com] Goto slider</a></li>
+      <li><a class="w-aaajiepai-download-slider" href="#">[aaajiepai.com] Download slider</a></li>
+      <li><a class="w-photo-poco-cn" href="#">photo.poco.cn</a></li>
+      <li><a class="w-my-poco-cn" href="#">my.poco.cn</a></li>
+      <li><a class="w-tu-chong-com" href="#">tuchong.com</a></li>
+      <li><a class="w-pconline-com-cn" href="#">pconline.com.cn</a></li>
+      <li><a class="w-moko-cc" href="#">moko.cc</a></li>
+      <li><a class="click-image" href="#">Click image</a></li>
+    </ul>
+    <div>
+      <a href="https://idolpixels.net/category/japanese-junior-idols?page=546">idolpixels.net</a>
+    </div>
+  </body>
+</html>
