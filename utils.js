@@ -111,7 +111,7 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
 
   const $button = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`);
   $button.css("background", "#FFF " + "url(" + icon + ")" + " no-repeat center center");
-  $button.css("background-size", "16px");
+  $button.css("background-size", "32px");
   $button.css("background-color", "rgb(255, 255, 255)");
   $button.hover(handlerIn, handlerOut);
 
