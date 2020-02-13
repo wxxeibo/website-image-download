@@ -1,46 +1,10 @@
-/* global $ */
-/* exported $, downloadImage, downloadImage2, addDownloadButtonTo, wrapDownloadButtonToImage */
+/* global $, downloadImage2 */
+/* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc */
 
 /**
- * Work before Chrome 65
- * https://www.chromestatus.com/feature/4969697975992320
- * https://crbug.com/714373
- * https://chromereleases.googleblog.com/2018/03/stable-channel-update-for-desktop_13.html
- * > To avoid what is essentially user-mediated cross-origin information leakage,
- * Blink will start to ignore the presence of the download attribute on anchor elements with cross origin attributes.
+ * Process the HTML element
  */
-function downloadImage(url) {
-  var a = $("<a>")
-    .attr("href", url)
-    .attr("download", url)
-    .appendTo("body");
-  a[0].click();
-  a.remove();
-}
-
-/**
- * @param {string} url The full URL to this image
- * If the URL is prefix with "//", e.g. "//foo.com/bar.jpg", will append the protocol
- */
-function downloadImage2(url) {
-  console.log("downloadImage2(), url:", url);
-
-  if (!url) {
-    console.error("[utils.js:downloadImage2()] missing url!");
-    return;
-  }
-
-  // If prefix with "//", auto append the protocol, e.g. "https://"
-  if (url.startsWith("//")) {
-    url = `${location.protocol}${url}`;
-  }
-
-  // eventPage.js
-  chrome.runtime.sendMessage({ greeting: "hello", url }, function(response) {
-    console.log("chrome.runtime.sendMessage", response);
-  });
-}
 
 /**
  * Given image with src="http://abc.com/2019.jpg.thumb.jpg"
@@ -123,16 +87,27 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
 };
 
 /**
- * Pass this function to jQuery's `click()` function.
+ * Loop all the images on the webpage and wrap a download button one by one
+ * @param {boolean} active When false, to remove all the download button
  */
-var downloadHandler;
-if (typeof downloadHandler !== "function") {
-  downloadHandler = event => {
-    const $img = $(event.target);
-    const imgUrl = $img.attr("src");
-    console.log("downloadHandler(), imgUrl:", imgUrl);
-    downloadImage2(imgUrl);
-  };
-}
+const wrapImagesWithDownloadBtn = function(active, icon, downloadHandler, images = document.querySelectorAll("img")) {
+  for (var i = 0; i < images.length; i++) {
+    var image = images[i];
+    if (active) {
+      wrapDownloadButtonToImage(image, icon, downloadHandler);
+    } else {
+      image.removeAttribute("button");
+      var parentA = image.parentNode;
+      var parentB = image.closest("article");
+      var selector = "span[class='xx-download-button']";
+      var targetA = parentA ? parentA.querySelector(selector) : null;
+      var targetB = parentB ? parentB.querySelector(selector) : null;
+      var element = targetA || targetB;
+      if (element) {
+        element.remove();
+      }
+    }
+  }
+};
 
-console.log("utils.js loaded.");
+console.log("utils/utils.js loaded.");

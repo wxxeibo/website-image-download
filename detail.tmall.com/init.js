@@ -1,4 +1,4 @@
-/* global $, createLogger, downloadImage2, wrapDownloadButtonToImage */
+/* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn */
 
 (function main() {
   const disabled = false;
@@ -32,7 +32,7 @@
           if (tmp.nodeType === Node.ELEMENT_NODE) {
             var type = tmp.getAttribute("type");
             if (!type || (type && type.indexOf("DFI-BUTTON") === -1)) {
-              processAllImages(true);
+              wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
             }
           }
         }
@@ -44,32 +44,6 @@
     downloadImage2(
       src.replace("_430x430q90.jpg", "") // 天猫左上角预览图
     );
-  };
-
-  /**
-   * Loop all the images on the webpage and wrap a download button one by one
-   * @param {boolean} active When false, to remove all the download button
-   */
-  const processAllImages = function(active) {
-    log("processAllImages()");
-    var images = document.querySelectorAll("#description img");
-    for (var i = 0; i < images.length; i++) {
-      var image = images[i];
-      if (active) {
-        wrapDownloadButtonToImage(image, icon, _downloadImage);
-      } else {
-        image.removeAttribute("button");
-        var parentA = image.parentNode;
-        var parentB = image.closest("article");
-        var selector = "span[class='xx-download-button']";
-        var targetA = parentA ? parentA.querySelector(selector) : null;
-        var targetB = parentB ? parentB.querySelector(selector) : null;
-        var element = targetA || targetB;
-        if (element) {
-          element.remove();
-        }
-      }
-    }
   };
 
   // var contentLoaded = function () {
@@ -100,16 +74,16 @@
   };
 
   const eventHandler = event => {
-    log("eventHandler", event);
+    log("eventHandler", event, event.code);
 
     switch (event.code) {
       case "KeyR":
         // Wrap all images with download button
-        processAllImages(true);
+        wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
         break;
       case "KeyT":
         // Remove the download button
-        processAllImages(false);
+        wrapImagesWithDownloadBtn(false, icon, _downloadImage, document.querySelectorAll("#description img"));
         break;
       case "ArrowRight": {
         log("ArrowRight pressed");

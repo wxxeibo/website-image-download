@@ -15,7 +15,7 @@
     {
       "all_frames": true,
       "matches": ["<all_urls>"],
-      "js": ["logger.js", "jquery.min.js", "utils.js", "popup.js", "init.js"],
+      "js": ["logger.js", "jquery.min.js", "utils/utils.js", "utils/download.js", "popup.js", "init.js"],
       "css": ["contentScripts/css/style.css"]
     },
     {
