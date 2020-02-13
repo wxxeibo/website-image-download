@@ -33,7 +33,7 @@
       case "KeyD":
         _downloadImage();
         break;
-      case "KeyL":
+      case "KeyR":
         _showDownloadButton();
         break;
       default:
