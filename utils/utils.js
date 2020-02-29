@@ -1,6 +1,6 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
-/* exported replaceImgSrc */
+/* exported replaceImgSrc, originalImage */
 
 /**
  * Process the HTML element
@@ -19,6 +19,20 @@ const replaceImgSrc = (part, replaced = "") => $img => {
   var newSrc = oldSrc.replace(part, replaced);
   console.log("replaceImgSrc() newSrc:", newSrc);
   $img.attr("src", newSrc);
+};
+
+/**
+ * Given image with src="http://abc.com/2019.jpg.thumb.jpg".
+ * The original img src should be the one without ".thumb.jpg" part in string.
+ * Add the original image src to the "data-xx-original-src" property.
+ * @param {string} part The text need to be removed
+ * @return {($img: jQuery) => undefined}
+ */
+const originalImage = (part, replaced = "") => $img => {
+  const thumbSrc = $img.attr("src");
+  var originalSrc = thumbSrc.replace(part, replaced);
+  console.log(`originalImage(): ${thumbSrc} => ${originalSrc}`);
+  $img.data("xx-original-src", originalSrc);
 };
 
 /**
@@ -62,7 +76,12 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
   const downloadImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    downloadHandler($(img).attr("src"));
+    downloadHandler($(img).data("xx-original-src"));
+  };
+  const previewImg = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    window.open($(img).data("xx-original-src"));
   };
 
   function handlerIn() {
@@ -73,17 +92,32 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
     this.style.opacity = "0.3";
   }
 
-  const $button = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`);
-  $button.css("background", "#FFF " + "url(" + icon + ")" + " no-repeat center center");
-  $button.css("background-size", "32px");
-  $button.css("background-color", "rgb(255, 255, 255)");
-  $button.hover(handlerIn, handlerOut);
+  const $button = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
+    .css("background", "#FFF " + "url(" + icon + ")" + " no-repeat center center")
+    .css("background-size", "32px")
+    .css("background-color", "rgb(255, 255, 255)")
+    .hover(handlerIn, handlerOut);
+
+  const $previewBtn = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
+    .css(
+      "background",
+      "#FFF " + "url(" + chrome.runtime.getURL("detail.tmall.com/open.png") + ")" + " no-repeat center center"
+    )
+    .css("background-size", "32px")
+    .css("background-color", "rgb(255, 255, 255)")
+    .css("left", "70px")
+    .hover(handlerIn, handlerOut);
 
   // $(img).click(downloadImg);
   $button.click(downloadImg);
   $(img)
     .parent()
     .append($button);
+
+  $previewBtn.click(previewImg);
+  $(img)
+    .parent()
+    .append($previewBtn);
 };
 
 /**

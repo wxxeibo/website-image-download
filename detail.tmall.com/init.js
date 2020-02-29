@@ -32,7 +32,14 @@
           if (tmp.nodeType === Node.ELEMENT_NODE) {
             var type = tmp.getAttribute("type");
             if (!type || (type && type.indexOf("DFI-BUTTON") === -1)) {
-              wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
+              const updateImages = document.querySelectorAll("#description img");
+
+              // Put the original image src in the data attribute, so the downloader could download the original images.
+              $("#description img").each((index, $img) => {
+                $img.data("xx-original-src", $img.attr("src").replace("_430x430q90.jpg", ""));
+              });
+
+              wrapImagesWithDownloadBtn(true, icon, _downloadImage, updateImages);
             }
           }
         }
@@ -78,6 +85,22 @@
 
     switch (event.code) {
       case "KeyR":
+        // Put the original image src in the data attribute, so the downloader could download the original images.
+        $("#description img").each((index, img) => {
+          // TODO 为什么通过 jQuery 没有成功将 data-* 属性设置到元素上？
+          $(img).data(
+            "xx-original-src",
+            $(img)
+              .attr("src")
+              .replace("_430x430q90.jpg", "")
+          );
+          img.setAttribute(
+            "data-xx-original-src",
+            $(img)
+              .attr("src")
+              .replace("_430x430q90.jpg", "")
+          );
+        });
         // Wrap all images with download button
         wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
         break;

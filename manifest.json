@@ -64,7 +64,7 @@
     }
   ],
 
-  "web_accessible_resources": ["detail.tmall.com/download.png"],
+  "web_accessible_resources": ["detail.tmall.com/download.png", "detail.tmall.com/open.png"],
 
   "background": {
     "scripts": ["eventPage.js"],

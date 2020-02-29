@@ -1,4 +1,4 @@
-/* global $, replaceImgSrc, downloadHandler, createLogger, wrapDownloadButtonToImage, downloadImage2 */
+/* global $, replaceImgSrc, originalImage, createLogger, wrapDownloadButtonToImage, downloadImage2 */
 
 /**
  * File: detail.tmall.com.js
@@ -19,7 +19,8 @@
 
     // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjcKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
     // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjcKv91purdU1nTSd_!!0-rate.jpg"
-    replaceImgSrc("_40x40.jpg", "")($img);
+    originalImage("_40x40.jpg", "")($img);
+    replaceImgSrc("_40x40.jpg", "_400x400.jpg")($img);
 
     // 图片不要太大了
     $img.css("width", "150px");
@@ -29,9 +30,6 @@
     $(".tm-col-master").css("width", "800px");
 
     wrapDownloadButtonToImage(img, icon, downloadImage2);
-
-    // Click image to download this image
-    $img.click(downloadHandler);
   });
 
   $(".tm-rate-reply").remove(); // 删除店主评论文字部分（太占版面了），只看照片。
