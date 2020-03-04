@@ -17,8 +17,8 @@
 
     const $img = $(img);
 
-    // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjcKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
-    // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjcKv91purdU1nTSd_!!0-rate.jpg"
+    // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
+    // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg"
     originalImage("_40x40.jpg", "")($img);
     replaceImgSrc("_40x40.jpg", "_400x400.jpg")($img);
 
