@@ -1,5 +1,10 @@
 /* global $, createLogger, downloadImage2,wrapImagesWithDownloadBtn */
 
+/**
+ * 在当前大图模式下，点击“Enter”或者“D”，下载原始图片。
+ * 在？？下，点击“R”，在所有图片上显示下载按钮。
+ */
+
 (() => {
   const log = createLogger("weibo.com/init.js");
 
@@ -30,6 +35,7 @@
 
   const eventHandler = event => {
     switch (event.code) {
+      case "Enter":
       case "KeyD":
         _downloadImage();
         break;
