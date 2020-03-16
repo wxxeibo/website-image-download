@@ -29,7 +29,7 @@ $(() => {
    * @param {string} file e.g. process_scripts/www.moko.cc.js
    */
   const loadProcessScripts = file => {
-    log("loadProcessScripts", file);
+    log("loadProcessScripts(), file:", file);
     // eventPage.js
     chrome.runtime.sendMessage({ action: "load", file }, function(response) {
       log("chrome.runtime.sendMessage", response);
