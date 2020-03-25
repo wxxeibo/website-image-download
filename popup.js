@@ -71,6 +71,12 @@ $(function() {
     load("menuActions/moko_cc.js");
   });
 
+  $(".w-jkforum-net").click(() => {
+    load("logger.js");
+    load("utils.js");
+    load("menuActions/jkforum_net.js");
+  });
+
   // http://dp.pconline.com.cn/photo/list_3727261.html
   $(".click-image").click(() => {
     // chrome.tabs.executeScript(null, {file: "jquery.min.js"});
