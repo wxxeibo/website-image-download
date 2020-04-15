@@ -1,4 +1,5 @@
-/* global $, createLogger, replaceImgSrc, originalImage, downloadImage2, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
+/* global $, createLogger, replaceImgSrc, originalImage, downloadImage2 */
+/* global wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
 
 (function main() {
   const disabled = false;
