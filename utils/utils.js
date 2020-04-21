@@ -22,7 +22,7 @@ const replaceImgSrc = (part, replaced = "") => $img => {
 };
 
 /**
- * Given image with src="http://abc.com/2019.jpg.thumb.jpg".
+ * Given <img src="http://abc.com/2019.jpg.thumb.jpg" />
  * The original img src should be the one without ".thumb.jpg" part in string.
  * Add the original image src to the "data-xx-original-src" property.
  * @param {string} part The text need to be removed
@@ -32,7 +32,7 @@ const originalImage = (part, replaced = "") => $img => {
   const thumbSrc = $img.attr("src");
   var originalSrc = thumbSrc.replace(part, replaced);
   console.log(`originalImage(): ${thumbSrc} => ${originalSrc}`);
-  $img.data("xx-original-src", originalSrc);
+  $img.attr("data-xx-original-src", originalSrc);
 };
 
 /**
@@ -76,12 +76,12 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
   const downloadImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    downloadHandler($(img).data("xx-original-src"));
+    downloadHandler($(img).attr("data-xx-original-src"));
   };
   const previewImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    window.open($(img).data("xx-original-src"));
+    window.open($(img).attr("data-xx-original-src"));
   };
 
   function handlerIn() {
