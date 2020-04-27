@@ -71,7 +71,7 @@
     });
     $a.click(); // not works
     $a.mousedown(); // not works
-    $a.get(0).click(); // works
+    $a.get(0) && $a.get(0).click(); // works
 
     // const $img = $("#imgPhoto");
     // if ($img.length > 0) {
