@@ -10,7 +10,7 @@ const log = (...args) => console.log("[eventPage.js]", ...args);
 log("eventPage.js loaded.");
 
 const load = (file, callback) => {
-  log("load", file, callback);
+  log("load", file /*, callback */);
 
   chrome.tabs.executeScript(null, { file }, result => {
     log("chrome.tabs.executeScript() =>", result);

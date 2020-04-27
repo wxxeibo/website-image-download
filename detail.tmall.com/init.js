@@ -1,5 +1,7 @@
 /* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn */
 
+// This script will be runned by chrome.tabs.executeScript in eventPage.js
+
 (function main() {
   const disabled = false;
   const log = createLogger("detail.tmall.com/init.js");
@@ -127,3 +129,8 @@
 
   log("end");
 }());
+
+// https://stackoverflow.com/a/41578299
+// Defined the return result for chrome.tabs.executeScript
+const result = "detail.tmall.com loaded";
+result;
