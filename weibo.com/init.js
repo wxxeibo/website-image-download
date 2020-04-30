@@ -50,4 +50,6 @@
   // KeyboardEvent.keyCode
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandler);
+
+  $("<style>.pic_choose_box.carousel { top: 0px; }</style>").appendTo("head");
 })();
