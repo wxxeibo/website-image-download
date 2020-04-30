@@ -4,7 +4,13 @@
 
 (function main() {
   const disabled = false;
-  const log = createLogger("detail.tmall.com/init.js");
+  let log = console.log;
+  try {
+    log = createLogger("detail.tmall.com/init.js");
+  } catch (error) {
+    console.error("failed to create logger, error:", error);
+    debugger;
+  }
 
   if (disabled) {
     return;
