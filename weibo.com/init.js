@@ -51,5 +51,6 @@
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandler);
 
-  $("<style>.pic_choose_box.carousel { top: 0px; }</style>").appendTo("head");
+  // Put a list thumbnails on the top of big image
+  // $("<style>.pic_choose_box.carousel { top: 0px; }</style>").appendTo("head");
 })();
