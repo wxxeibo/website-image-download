@@ -17,13 +17,6 @@
   const lKeyPressed = () => {
     // Put the original image src in the data attribute, so the downloader could download the original images.
     $("#description img").each((index, img) => {
-      // TODO 为什么通过 jQuery 没有成功将 data-* 属性设置到元素上？
-      $(img).data(
-        "xx-original-src",
-        $(img)
-          .attr("src")
-          .replace("_430x430q90.jpg", "")
-      );
       img.setAttribute(
         "data-xx-original-src",
         $(img)
@@ -31,13 +24,9 @@
           .replace("_430x430q90.jpg", "")
       );
     });
-    const _downloadImage = src => {
-      downloadImage2(
-        src.replace("_430x430q90.jpg", "") // 天猫左上角预览图
-      );
-    };
+
     // Wrap all images with download button
-    wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
+    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
 
     $(".tb-revbd .review-details img").each((key, img) => {
       log("Process image:", img);
