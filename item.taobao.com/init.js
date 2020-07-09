@@ -13,21 +13,18 @@
 
   const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
 
-  // Run this when L key pressed
-  const lKeyPressed = () => {
+  const processProductDetail = () => {
     // Put the original image src in the data attribute, so the downloader could download the original images.
     $("#description img").each((index, img) => {
-      img.setAttribute(
-        "data-xx-original-src",
-        $(img)
-          .attr("src")
-          .replace("_430x430q90.jpg", "")
-      );
+      img.setAttribute("data-xx-original-src", $(img).attr("src"));
     });
 
     // Wrap all images with download button
     wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+  };
 
+  const processProductReview = () => {
+    // revbd => review body
     $(".tb-revbd .review-details img").each((key, img) => {
       log("Process image:", img);
 
@@ -49,13 +46,10 @@
     });
   };
 
-  const rKeyPressed = () => {
-    // Put the original image src in the data attribute, so the downloader could download the original images.
-    $("#description img").each((index, img) => {
-      img.setAttribute("data-xx-original-src", $(img).attr("src"));
-    });
-    // Wrap all images with download button
-    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+  // Run this when L key pressed
+  const lKeyPressed = () => {
+    processProductDetail();
+    processProductReview();
   };
 
   const eventHandler = event => {
@@ -63,11 +57,9 @@
 
     switch (event.code) {
       case "KeyL":
+        // 1. In product detail, wrap images with download buttons
+        // 2. In product review, wrap images with download buttons
         lKeyPressed();
-        break;
-
-      case "KeyR":
-        rKeyPressed();
         break;
 
       default:
