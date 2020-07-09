@@ -34,15 +34,16 @@
   /**
    * Put the original image src in the data attribute, so the downloader could download the original images.
    */
-  const setOriginal = () => {
+  const setOriginalImageUrl = () => {
     $("#description img").each((index, img) => {
       img.setAttribute("data-xx-original-src", $(img).attr("src"));
     });
   };
 
-  const pressLKey = () => {
+  const processProductReview = () => {
     const imgUrls = [];
 
+    // Iterate each img in product review
     $(".tm-m-photos-thumb img").each((key, img) => {
       log("Process image:", img);
       const $img = $(img);
@@ -134,7 +135,7 @@
             var type = tmp.getAttribute("type");
             if (!type || (type && type.indexOf("DFI-BUTTON") === -1)) {
               const updateImages = document.querySelectorAll("#description img");
-              setOriginal();
+              setOriginalImageUrl();
               wrapImagesWithDownloadBtn(true, icon, downloadImage2, updateImages);
             }
           }
@@ -154,25 +155,35 @@
   // document.addEventListener("DOMContentLoaded", contentLoaded, false);
   load();
 
-  const turnToNextPage = () => {
-    const $a = $(".rate-paginator>a:last-child");
-    $a.on("click", e => {
-      console.log("turnToNextPage", e);
+  /**
+   * @param {string} selector A jQuery selector for button
+   */
+  const triggerClick = selector => {
+    const $a = $(selector);
+    $a.on("click", event => {
+      log("triggerClick()", "selector:", selector, "event:", event);
     });
     $a.click(); // not works
     $a.mousedown(); // not works
     $a.get(0) && $a.get(0).click(); // works
+  };
 
-    // const $img = $("#imgPhoto");
-    // if ($img.length > 0) {
-    //   // 在大图模式下找到大图，并下载
-    //   const imgFullUrl = $img.attr("src").replace("_500", "");
-    //   downloadImage2(imgFullUrl);
-    // }
+  const turnToPreviousPage = () => {
+    triggerClick(".rate-paginator>a:first-child");
+    setTimeout(() => {
+      processProductReview();
+    }, 1000);
+  };
+
+  const turnToNextPage = () => {
+    triggerClick(".rate-paginator>a:last-child");
+    setTimeout(() => {
+      processProductReview();
+    }, 1000);
   };
 
   const processProductDetail = () => {
-    setOriginal();
+    setOriginalImageUrl();
 
     // Wrap all images with download button
     wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
@@ -183,7 +194,7 @@
 
     switch (event.code) {
       case "KeyL":
-        pressLKey();
+        processProductReview();
         break;
 
       case "KeyR":
@@ -194,12 +205,15 @@
         // Remove the download button
         wrapImagesWithDownloadBtn(false, icon, downloadImage2, document.querySelectorAll("#description img"));
         break;
+      case "ArrowLeft": {
+        log("ArrowLeft pressed");
+        turnToPreviousPage();
+
+        break;
+      }
       case "ArrowRight": {
         log("ArrowRight pressed");
         turnToNextPage();
-        setTimeout(() => {
-          pressLKey();
-        }, 1000);
 
         break;
       }
