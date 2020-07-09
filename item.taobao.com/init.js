@@ -46,20 +46,15 @@
     });
   };
 
-  // Run this when L key pressed
-  const lKeyPressed = () => {
-    processProductDetail();
-    processProductReview();
-  };
-
   const eventHandler = event => {
     log("eventHandler", event, event.code);
 
     switch (event.code) {
       case "KeyL":
         // 1. In product detail, wrap images with download buttons
+        processProductDetail();
         // 2. In product review, wrap images with download buttons
-        lKeyPressed();
+        processProductReview();
         break;
 
       default:

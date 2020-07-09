@@ -31,6 +31,15 @@
     observer.observe(document.body, { childList: true, subtree: true });
   };
 
+  /**
+   * Put the original image src in the data attribute, so the downloader could download the original images.
+   */
+  const setOriginal = () => {
+    $("#description img").each((index, img) => {
+      img.setAttribute("data-xx-original-src", $(img).attr("src"));
+    });
+  };
+
   const pressLKey = () => {
     const imgUrls = [];
 
@@ -125,25 +134,14 @@
             var type = tmp.getAttribute("type");
             if (!type || (type && type.indexOf("DFI-BUTTON") === -1)) {
               const updateImages = document.querySelectorAll("#description img");
-
-              // Put the original image src in the data attribute, so the downloader could download the original images.
-              $("#description img").each((index, $img) => {
-                $img.data("xx-original-src", $img.attr("src").replace("_430x430q90.jpg", ""));
-              });
-
-              wrapImagesWithDownloadBtn(true, icon, _downloadImage, updateImages);
+              setOriginal();
+              wrapImagesWithDownloadBtn(true, icon, downloadImage2, updateImages);
             }
           }
         }
       }
     }
   });
-
-  const _downloadImage = src => {
-    downloadImage2(
-      src.replace("_430x430q90.jpg", "") // 天猫左上角预览图
-    );
-  };
 
   // var contentLoaded = function () {
   //   debugger;
@@ -173,6 +171,13 @@
     // }
   };
 
+  const processProductDetail = () => {
+    setOriginal();
+
+    // Wrap all images with download button
+    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+  };
+
   const eventHandler = event => {
     log("eventHandler", event, event.code);
 
@@ -182,21 +187,12 @@
         break;
 
       case "KeyR":
-        // Put the original image src in the data attribute, so the downloader could download the original images.
-        $("#description img").each((index, img) => {
-          img.setAttribute(
-            "data-xx-original-src",
-            $(img)
-              .attr("src")
-              .replace("_430x430q90.jpg", "")
-          );
-        });
-        // Wrap all images with download button
-        wrapImagesWithDownloadBtn(true, icon, _downloadImage, document.querySelectorAll("#description img"));
+        processProductDetail();
+
         break;
       case "KeyT":
         // Remove the download button
-        wrapImagesWithDownloadBtn(false, icon, _downloadImage, document.querySelectorAll("#description img"));
+        wrapImagesWithDownloadBtn(false, icon, downloadImage2, document.querySelectorAll("#description img"));
         break;
       case "ArrowRight": {
         log("ArrowRight pressed");
