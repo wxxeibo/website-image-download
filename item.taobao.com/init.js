@@ -60,12 +60,25 @@
     });
   };
 
+  const rKeyPressed = () => {
+    // Put the original image src in the data attribute, so the downloader could download the original images.
+    $("#description img").each((index, img) => {
+      img.setAttribute("data-xx-original-src", $(img).attr("src"));
+    });
+    // Wrap all images with download button
+    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+  };
+
   const eventHandler = event => {
     log("eventHandler", event, event.code);
 
     switch (event.code) {
       case "KeyL":
         lKeyPressed();
+        break;
+
+      case "KeyR":
+        rKeyPressed();
         break;
 
       default:
