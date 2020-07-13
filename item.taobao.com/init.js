@@ -1,5 +1,5 @@
 /* global $, createLogger, replaceImgSrc, originalImage, downloadImage2 */
-/* global wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
+/* global wrapDownloadButtonToImage, wrapImagesWithDownloadBtn, setOriginalImageUrl */
 
 (function main() {
   const disabled = false;
@@ -14,10 +14,7 @@
   const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
 
   const processProductDetail = () => {
-    // Put the original image src in the data attribute, so the downloader could download the original images.
-    $("#description img").each((index, img) => {
-      img.setAttribute("data-xx-original-src", $(img).attr("src"));
-    });
+    setOriginalImageUrl();
 
     // Wrap all images with download button
     wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));

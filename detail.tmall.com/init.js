@@ -1,5 +1,5 @@
 /* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn, originalImage */
-/* global replaceImgSrc, wrapDownloadButtonToImage */
+/* global replaceImgSrc, wrapDownloadButtonToImage, setOriginalImageUrl */
 
 // This script will be runned by chrome.tabs.executeScript in eventPage.js
 
@@ -29,15 +29,6 @@
       return;
     }
     observer.observe(document.body, { childList: true, subtree: true });
-  };
-
-  /**
-   * Put the original image src in the data attribute, so the downloader could download the original images.
-   */
-  const setOriginalImageUrl = () => {
-    $("#description img").each((index, img) => {
-      img.setAttribute("data-xx-original-src", $(img).attr("src"));
-    });
   };
 
   const processProductReview = () => {

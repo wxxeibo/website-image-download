@@ -1,6 +1,6 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
-/* exported replaceImgSrc, originalImage */
+/* exported replaceImgSrc, originalImage, setOriginalImageUrl */
 
 /**
  * Process the HTML element
@@ -142,6 +142,15 @@ const wrapImagesWithDownloadBtn = function(active, icon, downloadHandler, images
       }
     }
   }
+};
+
+/**
+ * Put the original image src in the data attribute, so the downloader could download the original images.
+ */
+const setOriginalImageUrl = () => {
+  $("#description img").each((index, img) => {
+    img.setAttribute("data-xx-original-src", $(img).attr("src"));
+  });
 };
 
 console.log("utils/utils.js loaded.");
