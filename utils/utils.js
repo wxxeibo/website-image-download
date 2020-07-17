@@ -56,6 +56,8 @@ const addDownloadButtonTo = (img, fontSize = 12) => {
     .append($button);
 };
 
+const imgFlagAttrName = "data-xx-download-button";
+
 /**
  * Wrap the given img tag in a div tag
  * This div wraps a download button to download the img
@@ -65,12 +67,14 @@ const addDownloadButtonTo = (img, fontSize = 12) => {
  * @param {Function} downloadHandler
  */
 const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
-  if ($(img).data("button")) {
+  console.log("wrapDownloadButtonToImage()", img, icon, downloadHandler);
+
+  if ($(img).attr(imgFlagAttrName) === "true") {
     // The download button exists
     return;
   }
 
-  $(img).data("button", "xx-download-button");
+  $(img).attr(imgFlagAttrName, "true");
   $(img).wrap(`<p style="display:flex;"></p>`);
 
   const downloadImg = event => {
@@ -97,6 +101,7 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
     .css("background-size", "32px")
     .css("background-color", "rgb(255, 255, 255)")
     .hover(handlerIn, handlerOut);
+  $button.click(downloadImg);
 
   const $previewBtn = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
     .css(
@@ -107,17 +112,13 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
     .css("background-color", "rgb(255, 255, 255)")
     .css("left", "70px")
     .hover(handlerIn, handlerOut);
-
-  // $(img).click(downloadImg);
-  $button.click(downloadImg);
-  $(img)
-    .parent()
-    .append($button);
-
   $previewBtn.click(previewImg);
+
+  $(img).click(previewImg);
   $(img)
     .parent()
-    .append($previewBtn);
+    .append($previewBtn)
+    .append($button);
 };
 
 /**
@@ -130,7 +131,7 @@ const wrapImagesWithDownloadBtn = function(active, icon, downloadHandler, images
     if (active) {
       wrapDownloadButtonToImage(image, icon, downloadHandler);
     } else {
-      image.removeAttribute("button");
+      image.removeAttribute(imgFlagAttrName);
       var parentA = image.parentNode;
       var parentB = image.closest("article");
       var selector = "span[class='xx-download-button']";

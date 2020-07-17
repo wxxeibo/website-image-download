@@ -32,6 +32,8 @@
   };
 
   const processProductReview = () => {
+    log("processProductReview()");
+
     const imgUrls = [];
 
     // Iterate each img in product review
@@ -99,7 +101,7 @@
         }).append(
           $("<img/>", {
             src: item.thumb400,
-            css: { width: "150px" },
+            css: { width: "150px", cursor: "pointer" },
             attr: {
               "data-xx-original-src": item.original
             }
