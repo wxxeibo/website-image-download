@@ -1,6 +1,9 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
-/* exported replaceImgSrc, originalImage, setOriginalImageUrl */
+/* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
+
+// Constants
+const dataAttrFlag = "data-xx-original-src";
 
 /**
  * Process the HTML element
@@ -32,7 +35,7 @@ const originalImage = (part, replaced = "") => $img => {
   const thumbSrc = $img.attr("src");
   var originalSrc = thumbSrc.replace(part, replaced);
   console.log(`originalImage(): ${thumbSrc} => ${originalSrc}`);
-  $img.attr("data-xx-original-src", originalSrc);
+  $img.attr(dataAttrFlag, originalSrc);
 };
 
 /**
@@ -80,12 +83,12 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
   const downloadImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    downloadHandler($(img).attr("data-xx-original-src"));
+    downloadHandler($(img).attr(dataAttrFlag));
   };
   const previewImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    window.open($(img).attr("data-xx-original-src"));
+    window.open($(img).attr(dataAttrFlag));
   };
 
   function handlerIn() {
@@ -150,7 +153,7 @@ const wrapImagesWithDownloadBtn = function(active, icon, downloadHandler, images
  */
 const setOriginalImageUrl = () => {
   $("#description img").each((index, img) => {
-    img.setAttribute("data-xx-original-src", $(img).attr("src"));
+    img.setAttribute(dataAttrFlag, $(img).attr("src"));
   });
 };
 
