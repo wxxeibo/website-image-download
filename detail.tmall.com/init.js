@@ -106,7 +106,7 @@
             src: item.thumb400,
             css: { width: "150px", cursor: "pointer" },
             attr: {
-              dataAttrFlag: item.original
+              [dataAttrFlag]: item.original
             }
           })
         )

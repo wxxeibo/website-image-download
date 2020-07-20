@@ -88,7 +88,11 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
   const previewImg = event => {
     event.preventDefault();
     event.stopPropagation();
-    window.open($(img).attr(dataAttrFlag));
+    const url = $(img).attr(dataAttrFlag);
+    if (!url) {
+      throw new Error("no original img src in data attr");
+    }
+    window.open(url);
   };
 
   function handlerIn() {
