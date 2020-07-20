@@ -4,7 +4,10 @@
 // This script will be runned by chrome.tabs.executeScript in eventPage.js
 
 (function main() {
+  // Constants
   const disabled = false;
+  const dataAttrFlag = "data-xx-original-src";
+
   let log = console.log;
   try {
     log = createLogger("detail.tmall.com/init.js");
@@ -41,7 +44,7 @@
       log("Process image:", img);
       const $img = $(img);
 
-      if (!$img.attr("data-xx-original-src")) {
+      if (!$img.attr(dataAttrFlag)) {
         // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
         // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg"
         originalImage("_40x40.jpg", "")($img);
@@ -49,7 +52,7 @@
       }
 
       imgUrls.push({
-        original: $img.attr("data-xx-original-src"),
+        original: $img.attr(dataAttrFlag),
         thumb400: $img.attr("src")
       });
     });
@@ -103,7 +106,7 @@
             src: item.thumb400,
             css: { width: "150px", cursor: "pointer" },
             attr: {
-              "data-xx-original-src": item.original
+              dataAttrFlag: item.original
             }
           })
         )
