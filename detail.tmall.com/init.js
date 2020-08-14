@@ -77,6 +77,15 @@
     // $("div.tm-rate-fulltxt").remove();
 
     /**
+     * Re-layout to make the image review area larger.
+     */
+    $("#mainwrap")
+      .css("width", "1120px")
+      .css("margin-left", "0px");
+    $(".col-sub").css("display", "none"); // hide left col
+    $(".col-extra").css("display", "none"); // hide right col
+
+    /**
      * 将原来的图片列表隐藏，生成新的图片列表
      */
 
@@ -88,7 +97,8 @@
       $("<div/>", {
         // text: "Photo List",
         class: "xx-photo-list",
-        css: { width: "800px" }
+        // 7x160px=1120px, 7 img in 1 row
+        css: { width: "1120px", border: "1px solid" }
       })
     );
 
@@ -99,7 +109,8 @@
           css: {
             float: "left",
             position: "relative",
-            margin: "5px"
+            margin: "5px",
+            height: "270px"
           }
         }).append(
           $("<img/>", {
