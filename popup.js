@@ -10,18 +10,6 @@ $(function() {
     chrome.tabs.executeScript(null, { file: "bcy.js" });
   });
 
-  // http://club.autohome.com.cn/
-  $(".w-autohome").click(() => {
-    chrome.tabs.executeScript(null, { file: "jquery.min.js" });
-    chrome.tabs.executeScript(null, { file: "utils.js" });
-    chrome.tabs.executeScript(null, { file: "autohome.js" });
-    // chrome.downloads.download({
-    //   url: "https://www.gravatar.com/avatar/f6278534f82406052d8aac1da327b84c?s=32&d=identicon&r=PG",
-    //   filename: "test.jpg", // Optional
-    //   saveAs: false
-    // });
-  });
-
   $(".w-baidutieba").on("click", () => {
     chrome.tabs.executeScript(null, { file: "jquery.min.js" });
     chrome.tabs.executeScript(null, { file: "utils.js" });
