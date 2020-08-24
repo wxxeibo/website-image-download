@@ -17,6 +17,7 @@
       "matches": ["<all_urls>"],
       "js": [
         "jquery.min.js",
+        "constants.js",
         "utils/logger.js",
         "utils/utils.js",
         "utils/download.js",
@@ -36,7 +37,7 @@
     },
     {
       "matches": ["https://www.flickr.com/*"],
-      "js": ["constants.js", "constructor.js", "flickr-remove-spaceball.js"]
+      "js": ["constructor.js", "flickr-remove-spaceball.js"]
     },
     {
       "matches": ["https://www.meitulu.com/item/*"],

@@ -1,3 +1,5 @@
+/* exported dataAttrFlag */
+
 (function() {
   const btn1attrs = {
     class: "a-class-name-placeholder-need-to-change",
@@ -20,3 +22,5 @@
     }
   };
 }());
+
+const dataAttrFlag = "data-xx-original-src";

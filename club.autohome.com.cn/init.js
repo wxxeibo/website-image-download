@@ -1,3 +1,4 @@
+/* global dataAttrFlag */
 /* global $, createLogger, replaceImgSrc, openPopup, wrapDownloadButtonToImage, downloadImage2, originalImage */
 
 (() => {
@@ -6,7 +7,6 @@
     return;
   }
 
-  const dataAttrFlag = "data-xx-original-src";
   const log = createLogger("club.autohome.com.cn/init.js");
 
   log("start");

@@ -1,3 +1,4 @@
+/* global dataAttrFlag */
 /* global $, createLogger, downloadImage2, wrapDownloadButtonToImage, originalImage, replaceImgSrc */
 
 // This script will be runned by chrome.tabs.executeScript in eventPage.js
@@ -5,7 +6,6 @@
 (function main() {
   // Constants
   const disabled = false;
-  const dataAttrFlag = "data-xx-original-src";
 
   let log = console.log;
   try {

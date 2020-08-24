@@ -1,3 +1,4 @@
+/* global dataAttrFlag */
 /* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn, originalImage */
 /* global replaceImgSrc, wrapDownloadButtonToImage, setOriginalImageUrl */
 
@@ -6,7 +7,6 @@
 (function main() {
   // Constants
   const disabled = false;
-  const dataAttrFlag = "data-xx-original-src";
 
   let log = console.log;
   try {

@@ -1,9 +1,7 @@
+/* global dataAttrFlag */
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
-
-// Constants
-const dataAttrFlag = "data-xx-original-src";
 
 /**
  * Process the HTML element
