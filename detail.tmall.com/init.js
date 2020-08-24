@@ -14,7 +14,6 @@
   } catch (error) {
     console.error("failed to create logger, error:", error);
     alert("failed to create logger");
-    debugger;
     return;
   }
 
