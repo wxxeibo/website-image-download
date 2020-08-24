@@ -1,4 +1,4 @@
-/* exported dataAttrFlag */
+/* exported dataAttrFlag, imgFlagAttrName */
 
 (function() {
   const btn1attrs = {
@@ -24,3 +24,4 @@
 }());
 
 const dataAttrFlag = "data-xx-original-src";
+const imgFlagAttrName = "data-xx-download-button";
