@@ -18,9 +18,9 @@ const dataAttrFlag = "data-xx-original-src";
  */
 const replaceImgSrc = (part, replaced = "") => $img => {
   const oldSrc = $img.attr("src");
-  console.log("replaceImgSrc() oldSrc:", oldSrc);
+  // console.log("[DEBUG]", "replaceImgSrc() oldSrc:", oldSrc);
   var newSrc = oldSrc.replace(part, replaced);
-  console.log("replaceImgSrc() newSrc:", newSrc);
+  // console.log("[DEBUG]", "replaceImgSrc() newSrc:", newSrc);
   $img.attr("src", newSrc);
 };
 
@@ -70,7 +70,7 @@ const imgFlagAttrName = "data-xx-download-button";
  * @param {Function} downloadHandler
  */
 const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
-  console.log("wrapDownloadButtonToImage()", img, icon, downloadHandler);
+  console.log("wrapDownloadButtonToImage()", img, icon);
 
   if ($(img).attr(imgFlagAttrName) === "true") {
     // The download button exists
