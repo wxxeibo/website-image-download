@@ -39,7 +39,7 @@ function downloadImage2(url) {
     url = `${location.protocol}${url}`;
   }
 
-  // eventPage.js
+  // event handler defined in background/eventPage.js
   chrome.runtime.sendMessage({ greeting: "hello", url }, function(response) {
     console.log("chrome.runtime.sendMessage", response);
   });
@@ -58,4 +58,4 @@ if (typeof downloadHandler !== "function") {
   };
 }
 
-console.log("utils/utils.js loaded.");
+console.log("utils/download.js loaded.");
