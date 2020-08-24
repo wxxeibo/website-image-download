@@ -22,11 +22,11 @@
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandler);
   document.addEventListener("keyup", () => {
-    console.log("keyup");
+    log("keyup");
   });
   setTimeout(() => {
     document.addEventListener("keyup", () => {
-      console.log("keyup");
+      log("keyup");
     });
   }, 2000);
 
