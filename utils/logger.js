@@ -2,6 +2,15 @@
 /* exported createLogger */
 
 /**
+ * Log format
+ * [DEBUG] [foo/bar.js] Foo bar 2000
+ */
+
+const log = (...args) => console.log("[DEBUG]", "[utils/logger.js]", ...args);
+
+log("start.");
+
+/**
  * logger.js Could be loaded multiple times
  */
 
@@ -37,7 +46,10 @@
  * Solution 1
  */
 if (typeof createLogger !== "function") {
-  createLogger = name => (...arg) => console.log(`[${name}]`, ...arg);
+  log("createLogger not defined, will define it.");
+  createLogger = name => (...arg) => console.log("[DEBUG]", `[${name}]`, ...arg);
+} else {
+  log("createLogger is defined, will not define it.");
 }
 
 /**
@@ -50,4 +62,4 @@ if (typeof createLogger !== "function") {
  */
 // const createLogger = createLogger || (name => (...arg) => console.log(`[${name}]`, ...arg));
 
-console.log("logger.js loaded.");
+log("end.");

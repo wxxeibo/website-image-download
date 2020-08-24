@@ -19,3 +19,18 @@
   -moz-transition: 300ms ease all !important;
   -webkit-transition: 300ms ease all !important;
 }
+
+.xx-popup {
+  position: fixed;
+  width: 300px;
+  z-index: 9999;
+  display: normal;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px #aaa;
+  overflow: hidden;
+  padding: 10px;
+}

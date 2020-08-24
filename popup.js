@@ -54,14 +54,14 @@ $(function() {
   });
 
   $(".w-moko-cc").click(() => {
-    load("logger.js");
-    load("utils.js");
+    load("utils/logger.js");
+    load("utils/utils.js");
     load("menuActions/moko_cc.js");
   });
 
   $(".w-jkforum-net").click(() => {
-    load("logger.js");
-    load("utils.js");
+    load("utils/logger.js");
+    load("utils/utils.js");
     load("menuActions/jkforum_net.js");
   });
 

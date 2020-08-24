@@ -16,7 +16,6 @@
 $(() => {
   const log = createLogger("init.js");
 
-  log("init.js");
   log("Start checking environment...");
   log("chrome:", chrome, chrome.runtime);
   log("chrome.runtime:", chrome.runtime);
@@ -32,7 +31,10 @@ $(() => {
     log("loadProcessScripts(), file:", file);
     // eventPage.js
     chrome.runtime.sendMessage({ action: "load", file }, function(response) {
-      log("chrome.runtime.sendMessage", response);
+      log("chrome.runtime.sendMessage", file, response);
+      if (response && response.lastError) {
+        console.warn("[WARN]", "[init.js]", "Failed to load file, file:", file, "error:", response.lastError.message);
+      }
     });
   };
 
@@ -66,6 +68,6 @@ $(() => {
 
   // Load init scripts of the current website
   loadInitScriptByHostname();
-});
 
-console.log("init.js loaded.");
+  log("loaded.");
+});
