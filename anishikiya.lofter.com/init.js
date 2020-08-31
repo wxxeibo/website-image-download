@@ -1,6 +1,8 @@
 /* global dataAttrFlag */
 /* global $, createLogger, replaceImgSrc, openPopup, wrapDownloadButtonToImage, downloadImage2, originalImage */
 
+// Copy from club.autohome.com.cn
+
 (() => {
   if (typeof createLogger !== "function") {
     console.error("[anishikiya.lofter.com/init.js] createLogger not defined yet.");
@@ -25,8 +27,8 @@
         wrapDownloadButtonToImage(img, icon, downloadImage2);
 
         // Add the original image URL to the data attribute
-        // "//club2.autoimg.cn/album/g2/M0B/E7/4B/userphotos/2018/12/11/11/500_ChsEmlwPMD6AEs9sABhthfkAyQ8621.jpg"
-        // "//club2.autoimg.cn/album/g2/M0B/E7/4B/userphotos/2018/12/11/11/ChsEmlwPMD6AEs9sABhthfkAyQ8621.jpg"
+        // "https://imglf.nosdn.127.net/img/kNeUg.jpg?imageView&thumbnail=1680x0&quality=96&strip..."
+        // "https://imglf.nosdn.127.net/img/kNeUg.jpg"
         originalImage(/\?imageView.*/, "")($img);
         // Show the original picture instead of the thumb one
         replaceImgSrc(/\?imageView.*/, "")($img);
