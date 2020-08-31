@@ -1,4 +1,4 @@
-/* global $, dataAttrFlag, imgFlagAttrName */
+/* global $, dataAttrFlag, imgFlagAttrName, originalImage, replaceImgSrc */
 /* exported openPopup, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
 
 /**
@@ -32,8 +32,29 @@ function openPopup(content = "", duration = 1000) {
  * @param {HTMLElement} img
  * @param {string} icon "chrome-extension://oojgkpcpifcalolijncnlgkcjdoobllj/detail.tmall.com/download.png"
  * @param {Function} downloadHandler
+ * @param {Object} config Config
+ * small thumb => "//img.alicdn.com/bao/uploaded/i1/OCN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
+ * big thumb => "//img.alicdn.com/bao/uploaded/i1/OCN01NjCKv91purdU1nTSd_!!0-rate.jpg_400x400.jpg"
+ * full size => "//img.alicdn.com/bao/uploaded/i1/OCN01NjCKv91purdU1nTSd_!!0-rate.jpg"
+ * e.g.
+ * ```
+ * {
+ *  "original": "_40x40.jpg",
+ *  "thumb": "_400x400.jpg",
+ *  "full": ""
+ * }
+ * ```
+ * some have no big thumb, e.g.
+ * ```
+ * {
+ *  "original": /\?imageView.* /
+ *  "thumb": "",
+ *  "full": ""
+ * }
+ * ```
+ * @external jQuery
  */
-const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
+const wrapDownloadButtonToImage = (img, icon, downloadHandler, config = null) => {
   // console.log("wrapDownloadButtonToImage()", img, icon);
 
   if ($(img).attr(imgFlagAttrName) === "true") {
@@ -90,6 +111,13 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler) => {
     .parent()
     .append($previewBtn)
     .append($button);
+
+  if (config) {
+    // Add the original image URL to the data attribute
+    originalImage(config.original, config.full)($(img));
+    // Show the original picture instead of the thumb one
+    replaceImgSrc(config.original, config.thumb)($(img));
+  }
 };
 
 /**

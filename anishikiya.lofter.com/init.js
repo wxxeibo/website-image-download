@@ -24,14 +24,11 @@
       const $img = $(img);
 
       if (!$img.attr(dataAttrFlag)) {
-        wrapDownloadButtonToImage(img, icon, downloadImage2);
-
-        // Add the original image URL to the data attribute
-        // "https://imglf.nosdn.127.net/img/kNeUg.jpg?imageView&thumbnail=1680x0&quality=96&strip..."
-        // "https://imglf.nosdn.127.net/img/kNeUg.jpg"
-        originalImage(/\?imageView.*/, "")($img);
-        // Show the original picture instead of the thumb one
-        replaceImgSrc(/\?imageView.*/, "")($img);
+        wrapDownloadButtonToImage(img, icon, downloadImage2, {
+          original: /\?imageView.*/,
+          full: "",
+          thumb: ""
+        });
       }
     });
   };

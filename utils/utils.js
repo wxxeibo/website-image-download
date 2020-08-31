@@ -1,6 +1,6 @@
 /* global dataAttrFlag */
 /* global $, downloadImage2 */
-/* exported $, addDownloadButtonTo, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
+/* exported $, addDownloadButtonTo, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
 
 /**
