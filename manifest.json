@@ -65,15 +65,21 @@
     },
     {
       "matches": ["*://weibo.com/*"],
-      "js": ["weibo.com/page-show-download-btn.js", "weibo.com/press-d-to-download-photo.js"]
+      "js": [
+        "contentScripts/weibo.com/page-show-download-btn.js",
+        "contentScripts/weibo.com/press-d-to-download-photo.js"
+      ]
     },
     {
       "matches": ["*://photo.weibo.com/*"],
-      "js": ["photo.weibo.com/photos-show-download-btn.js"]
+      "js": ["contentScripts/photo.weibo.com/photos-show-download-btn.js"]
     }
   ],
 
-  "web_accessible_resources": ["detail.tmall.com/download.png", "detail.tmall.com/open.png"],
+  "web_accessible_resources": [
+    "contentScripts/detail.tmall.com/download.png",
+    "contentScripts/detail.tmall.com/open.png"
+  ],
 
   "background": {
     "scripts": ["background/eventPage.js"],
