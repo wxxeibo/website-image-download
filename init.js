@@ -50,7 +50,7 @@ $(() => {
   const loadInitScriptByHostname = () => {
     log("loadInitScriptByHostname()");
     // location.hostname: "www.moko.cc"
-    const file = `${location.hostname}/init.js`;
+    const file = `contentScripts/${location.hostname}/init.js`;
     loadProcessScripts(file);
   };
 
