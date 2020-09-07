@@ -78,7 +78,8 @@
 
   "web_accessible_resources": [
     "contentScripts/detail.tmall.com/download.png",
-    "contentScripts/detail.tmall.com/open.png"
+    "contentScripts/detail.tmall.com/open.png",
+    "data/jav-db.json"
   ],
 
   "background": {

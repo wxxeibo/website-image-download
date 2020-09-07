@@ -6,9 +6,12 @@
  * @description Some utils to help create UI components
  */
 
+/**
+ * @param {string} content Can pass HTML code
+ * @param {number} [duration=0] when to auto-hide dialog, in milliseconds, 0 to disable auto-hide
+ * @returns {undefined}
+ */
 function openPopup(content = "", duration = 1000) {
-  console.log("[DEBUG]", "openPopup()", content, duration);
-
   var newDiv = document.createElement("div");
   newDiv.innerHTML += `<div id="xx-popup" class="xx-popup">
 <div style="height: 100px;">${content}</div>
@@ -17,6 +20,11 @@ function openPopup(content = "", duration = 1000) {
   // add the newly created element and its content into the DOM
   var currentDiv = document.getElementById("main_container");
   document.body.insertBefore(newDiv, currentDiv);
+
+  // Disable auto hide
+  if (duration === 0) {
+    return;
+  }
 
   // Close popup after 1s
   setTimeout(() => {
