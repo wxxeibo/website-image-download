@@ -2,14 +2,12 @@
 
 (() => {
   const matchResults = document.title.match(/\w+-\d+/);
-  let javCode = "";
-  try {
-    javCode = matchResults[0];
-    // openPopup(javCode, 0);
-  } catch (error) {
-    console.log("failed to parse title, error:", error);
-    alert("title: " + document.title);
+  if (!matchResults) {
+    console.log("not found code in title");
+    return;
   }
+  const javCode = matchResults[0];
+  // openPopup(javCode, 0);
 
   const doSomething = db => {
     db.data.forEach(item => {
