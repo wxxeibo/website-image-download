@@ -10,8 +10,6 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   /**
    * 下载当前以大图模式展示的图片
    */
@@ -30,7 +28,7 @@
         src.replace("orj360", "large") // 小缩略图网址替换为完整网址
       );
     };
-    wrapImagesWithDownloadBtn(true, icon, _download, document.querySelectorAll(".WB_media_wrap .media_box img"));
+    wrapImagesWithDownloadBtn(true, _download, document.querySelectorAll(".WB_media_wrap .media_box img"));
   };
 
   const eventHandler = event => {

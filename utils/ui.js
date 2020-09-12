@@ -38,7 +38,6 @@ function openPopup(content = "", duration = 1000) {
  * This div wraps a download button to download the img
  * A better solution to addDownloadButtonTo()
  * @param {HTMLElement} img
- * @param {string} icon "chrome-extension://ooj...llj/contentScripts/detail.tmall.com/download.png"
  * @param {Function} downloadHandler
  * @param {Object} config Config
  * small thumb => "//img.alicdn.com/bao/uploaded/i1/OCN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
@@ -62,9 +61,7 @@ function openPopup(content = "", duration = 1000) {
  * ```
  * @external jQuery
  */
-const wrapDownloadButtonToImage = (img, icon, downloadHandler, config = null) => {
-  // console.log("wrapDownloadButtonToImage()", img, icon);
-
+const wrapDownloadButtonToImage = (img, downloadHandler, config = null) => {
   if ($(img).attr(imgFlagAttrName) === "true") {
     // The download button exists
     return;
@@ -97,21 +94,14 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler, config = null) =>
   }
 
   const $button = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
-    .css("background", "#FFF " + "url(" + icon + ")" + " no-repeat center center")
+    .css("background", "#FFF " + "url(" + getIcon("download.png") + ")" + " no-repeat center center")
     .css("background-size", "32px")
     .css("background-color", "rgb(255, 255, 255)")
     .hover(handlerIn, handlerOut);
   $button.click(downloadImg);
 
   const $previewBtn = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
-    .css(
-      "background",
-      "#FFF " +
-        "url(" +
-        chrome.runtime.getURL("contentScripts/detail.tmall.com/open.png") +
-        ")" +
-        " no-repeat center center"
-    )
+    .css("background", "#FFF " + "url(" + getIcon("open.png") + ")" + " no-repeat center center")
     .css("background-size", "32px")
     .css("background-color", "rgb(255, 255, 255)")
     .css("left", "70px")
@@ -133,14 +123,20 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler, config = null) =>
 };
 
 /**
+ * @param {string} filename e.g. "download.png"
+ * @returns {string} "chrome-extension://ooj...llj/contentScripts/img/download.png"
+ */
+const getIcon = filename => chrome.runtime.getURL(`contentScripts/img/${filename}`);
+
+/**
  * Loop all the images on the webpage and wrap a download button one by one
  * @param {boolean} active When false, to remove all the download button
  */
-const wrapImagesWithDownloadBtn = function(active, icon, downloadHandler, images = document.querySelectorAll("img")) {
+const wrapImagesWithDownloadBtn = function(active, downloadHandler, images = document.querySelectorAll("img")) {
   for (var i = 0; i < images.length; i++) {
     var image = images[i];
     if (active) {
-      wrapDownloadButtonToImage(image, icon, downloadHandler);
+      wrapDownloadButtonToImage(image, getIcon("download.png"), downloadHandler);
     } else {
       image.removeAttribute(imgFlagAttrName);
       var parentA = image.parentNode;

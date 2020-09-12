@@ -22,8 +22,6 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   const processLPressed = () => {
     // Loop each img and replace src with original
     $("img").each((key, img) => {
@@ -35,7 +33,7 @@
         return;
       }
 
-      wrapDownloadButtonToImage(img, icon, downloadImage2);
+      wrapDownloadButtonToImage(img, downloadImage2);
 
       if (!$img.attr(dataAttrFlag)) {
         // Add the original image URL to the data attribute

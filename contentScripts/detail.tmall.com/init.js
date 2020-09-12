@@ -23,8 +23,6 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   const load = () => {
     const disableObserver = true;
     if (disableObserver) {
@@ -124,7 +122,7 @@
     });
 
     $(".xx-photo-list img").each((key, img) => {
-      wrapDownloadButtonToImage(img, icon, downloadImage2);
+      wrapDownloadButtonToImage(img, downloadImage2);
     });
   };
 
@@ -142,7 +140,7 @@
             if (!type || (type && type.indexOf("DFI-BUTTON") === -1)) {
               const updateImages = document.querySelectorAll("#description img");
               setOriginalImageUrl();
-              wrapImagesWithDownloadBtn(true, icon, downloadImage2, updateImages);
+              wrapImagesWithDownloadBtn(true, downloadImage2, updateImages);
             }
           }
         }
@@ -192,7 +190,7 @@
     setOriginalImageUrl();
 
     // Wrap all images with download button
-    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+    wrapImagesWithDownloadBtn(true, downloadImage2, document.querySelectorAll("#description img"));
   };
 
   const eventHandler = event => {
@@ -209,7 +207,7 @@
         break;
       case "KeyT":
         // Remove the download button
-        wrapImagesWithDownloadBtn(false, icon, downloadImage2, document.querySelectorAll("#description img"));
+        wrapImagesWithDownloadBtn(false, downloadImage2, document.querySelectorAll("#description img"));
         break;
       case "ArrowLeft": {
         log("ArrowLeft pressed");

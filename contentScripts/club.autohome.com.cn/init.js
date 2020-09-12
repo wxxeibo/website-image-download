@@ -12,8 +12,6 @@
   log("start");
   log("window.location", window.location);
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   const processLPressed = () => {
     openPopup("L Pressed");
 
@@ -24,7 +22,7 @@
       const $img = $(img);
 
       if (!$img.attr(dataAttrFlag)) {
-        wrapDownloadButtonToImage(img, icon, downloadImage2);
+        wrapDownloadButtonToImage(img, downloadImage2);
 
         // Add the original image URL to the data attribute
         // "//club2.autoimg.cn/album/g2/M0B/E7/4B/userphotos/2018/12/11/11/500_ChsEmlwPMD6AEs9sABhthfkAyQ8621.jpg"

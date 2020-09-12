@@ -11,13 +11,11 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   const processProductDetail = () => {
     setOriginalImageUrl();
 
     // Wrap all images with download button
-    wrapImagesWithDownloadBtn(true, icon, downloadImage2, document.querySelectorAll("#description img"));
+    wrapImagesWithDownloadBtn(true, downloadImage2, document.querySelectorAll("#description img"));
   };
 
   const processProductReview = () => {
@@ -39,7 +37,7 @@
       $img.css("width", "150px");
       $img.css("height", "auto");
 
-      wrapDownloadButtonToImage(img, icon, downloadImage2);
+      wrapDownloadButtonToImage(img, downloadImage2);
     });
   };
 

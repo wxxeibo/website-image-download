@@ -1,5 +1,5 @@
 /* global dataAttrFlag */
-/* global $, createLogger, replaceImgSrc, openPopup, wrapDownloadButtonToImage, downloadImage2, originalImage */
+/* global $, createLogger, openPopup, wrapDownloadButtonToImage, downloadImage2 */
 
 // Copy from club.autohome.com.cn
 
@@ -14,8 +14,6 @@
   log("start");
   log("window.location", window.location);
 
-  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
-
   const processLPressed = () => {
     openPopup("L Pressed");
 
@@ -24,7 +22,7 @@
       const $img = $(img);
 
       if (!$img.attr(dataAttrFlag)) {
-        wrapDownloadButtonToImage(img, icon, downloadImage2, {
+        wrapDownloadButtonToImage(img, downloadImage2, {
           original: /\?imageView.*/,
           full: "",
           thumb: ""

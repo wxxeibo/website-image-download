@@ -76,11 +76,7 @@
     }
   ],
 
-  "web_accessible_resources": [
-    "contentScripts/detail.tmall.com/download.png",
-    "contentScripts/detail.tmall.com/open.png",
-    "data/jav-db.json"
-  ],
+  "web_accessible_resources": ["contentScripts/img/download.png", "contentScripts/img/open.png", "data/jav-db.json"],
 
   "background": {
     "scripts": ["background/eventPage.js"],
