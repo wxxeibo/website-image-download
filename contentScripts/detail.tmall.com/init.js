@@ -23,7 +23,7 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
+  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
 
   const load = () => {
     const disableObserver = true;

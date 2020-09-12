@@ -38,7 +38,7 @@ function openPopup(content = "", duration = 1000) {
  * This div wraps a download button to download the img
  * A better solution to addDownloadButtonTo()
  * @param {HTMLElement} img
- * @param {string} icon "chrome-extension://oojgkpcpifcalolijncnlgkcjdoobllj/detail.tmall.com/download.png"
+ * @param {string} icon "chrome-extension://ooj...llj/contentScripts/detail.tmall.com/download.png"
  * @param {Function} downloadHandler
  * @param {Object} config Config
  * small thumb => "//img.alicdn.com/bao/uploaded/i1/OCN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
@@ -106,7 +106,11 @@ const wrapDownloadButtonToImage = (img, icon, downloadHandler, config = null) =>
   const $previewBtn = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
     .css(
       "background",
-      "#FFF " + "url(" + chrome.runtime.getURL("detail.tmall.com/open.png") + ")" + " no-repeat center center"
+      "#FFF " +
+        "url(" +
+        chrome.runtime.getURL("contentScripts/detail.tmall.com/open.png") +
+        ")" +
+        " no-repeat center center"
     )
     .css("background-size", "32px")
     .css("background-color", "rgb(255, 255, 255)")

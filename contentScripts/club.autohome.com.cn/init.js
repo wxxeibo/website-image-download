@@ -12,7 +12,7 @@
   log("start");
   log("window.location", window.location);
 
-  const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
+  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
 
   const processLPressed = () => {
     openPopup("L Pressed");

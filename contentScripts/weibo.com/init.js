@@ -10,7 +10,7 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
+  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
 
   /**
    * 下载当前以大图模式展示的图片

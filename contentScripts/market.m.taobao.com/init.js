@@ -22,7 +22,7 @@
 
   log("start");
 
-  const icon = chrome.runtime.getURL("detail.tmall.com/download.png");
+  const icon = chrome.runtime.getURL("contentScripts/detail.tmall.com/download.png");
 
   const processLPressed = () => {
     // Loop each img and replace src with original
