@@ -68,7 +68,7 @@ const wrapDownloadButtonToImage = (img, downloadHandler, config = null) => {
   }
 
   $(img).attr(imgFlagAttrName, "true");
-  $(img).wrap(`<p style="display:flex;"></p>`);
+  $(img).wrap(`<p class="xx-download" style="display:flex;"></p>`);
 
   const downloadImg = event => {
     event.preventDefault();
@@ -136,7 +136,7 @@ const wrapImagesWithDownloadBtn = function(active, downloadHandler, images = doc
   for (var i = 0; i < images.length; i++) {
     var image = images[i];
     if (active) {
-      wrapDownloadButtonToImage(image, getIcon("download.png"), downloadHandler);
+      wrapDownloadButtonToImage(image, downloadHandler);
     } else {
       image.removeAttribute(imgFlagAttrName);
       var parentA = image.parentNode;
