@@ -5,13 +5,16 @@
 
   log("start");
 
+  $("br").remove();
+
   $(".zoom").each((key, img) => {
     log("Process image:", img);
 
     const $img = $(img);
+    $img.css("width", "400px");
+
     // 原来的 onClick 会导致点击图片时候弹出新窗口
     $img.prop("onclick", null).off("click");
-
     // Click image to download this image
     $img.click(downloadHandler);
   });
