@@ -7,14 +7,28 @@
 
   $("br").remove();
 
+  // A way to modify window object
+  // start
+  function script() {
+    // 原来的 img onClick 会导致点击图片时候弹出新窗口
+    window.zoom = () => {
+      console.log("original zoom() function is already override");
+    };
+  }
+  function inject(fn) {
+    const s = document.createElement("script");
+    s.text = `(${fn.toString()})();`;
+    document.documentElement.appendChild(s);
+  }
+  inject(script);
+  // end
+
   $(".zoom").each((key, img) => {
     log("Process image:", img);
 
     const $img = $(img);
     $img.css("width", "400px");
 
-    // 原来的 onClick 会导致点击图片时候弹出新窗口
-    $img.prop("onclick", null).off("click");
     // Click image to download this image
     $img.click(downloadHandler);
   });
