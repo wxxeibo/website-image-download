@@ -1,5 +1,6 @@
 /* global $, createLogger, replaceImgSrc, originalImage, downloadImage2 */
 /* global wrapDownloadButtonToImage, wrapImagesWithDownloadBtn, setOriginalImageUrl */
+/* global triggerClick */
 
 (function main() {
   const disabled = false;
@@ -41,21 +42,43 @@
     });
   };
 
+  const loadLargePic = () => {
+    // 1. In product detail, wrap images with download buttons
+    processProductDetail();
+    // 2. In product review, wrap images with download buttons
+    processProductReview();
+  };
+
+  const turnToPreviousPage = () => {
+    triggerClick("li.pg-prev");
+    setTimeout(() => {
+      processProductReview();
+    }, 1000);
+  };
+
+  const turnToNextPage = () => {
+    triggerClick("li.pg-next");
+    setTimeout(() => {
+      processProductReview();
+    }, 1000);
+  };
+
+  const eventCodeProcedureMapping = {
+    KeyL: loadLargePic,
+    ArrowLeft: turnToPreviousPage,
+    ArrowRight: turnToNextPage
+  };
+
   const eventHandler = event => {
     log("eventHandler", event, event.code);
 
-    switch (event.code) {
-      case "KeyL":
-        // 1. In product detail, wrap images with download buttons
-        processProductDetail();
-        // 2. In product review, wrap images with download buttons
-        processProductReview();
-        break;
-
-      default:
-        log("No process for this key.");
-        break;
+    const procedure = eventCodeProcedureMapping[event.code];
+    if (!procedure) {
+      log("No process for this key.");
+      return;
     }
+
+    procedure();
   };
 
   // KeyboardEvent.keyCode

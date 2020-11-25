@@ -2,6 +2,7 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
+/* exported triggerClick */
 
 /**
  * Process the HTML element
@@ -64,6 +65,20 @@ const setOriginalImageUrl = () => {
   $("#description img").each((index, img) => {
     img.setAttribute(dataAttrFlag, $(img).attr("src"));
   });
+};
+
+/**
+ * Click on an element
+ * @param {string} selector A jQuery selector for button
+ */
+const triggerClick = selector => {
+  const $a = $(selector);
+  $a.on("click", event => {
+    // log("triggerClick()", "selector:", selector, "event:", event);
+  });
+  $a.click(); // not works
+  $a.mousedown(); // not works
+  $a.get(0) && $a.get(0).click(); // works
 };
 
 console.log("utils/utils.js loaded.");

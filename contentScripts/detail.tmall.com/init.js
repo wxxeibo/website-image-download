@@ -1,6 +1,7 @@
 /* global dataAttrFlag */
 /* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn, originalImage */
 /* global replaceImgSrc, wrapDownloadButtonToImage, setOriginalImageUrl */
+/* global triggerClick */
 
 // This script will be runned by chrome.tabs.executeScript in eventPage.js
 
@@ -159,19 +160,6 @@
   // document.addEventListener("DOMContentLoaded", contentLoaded, false);
   load();
 
-  /**
-   * @param {string} selector A jQuery selector for button
-   */
-  const triggerClick = selector => {
-    const $a = $(selector);
-    $a.on("click", event => {
-      log("triggerClick()", "selector:", selector, "event:", event);
-    });
-    $a.click(); // not works
-    $a.mousedown(); // not works
-    $a.get(0) && $a.get(0).click(); // works
-  };
-
   const turnToPreviousPage = () => {
     triggerClick(".rate-paginator>a:first-child");
     setTimeout(() => {
@@ -209,18 +197,21 @@
         // Remove the download button
         wrapImagesWithDownloadBtn(false, downloadImage2, document.querySelectorAll("#description img"));
         break;
+
       case "ArrowLeft": {
         log("ArrowLeft pressed");
         turnToPreviousPage();
 
         break;
       }
+
       case "ArrowRight": {
         log("ArrowRight pressed");
         turnToNextPage();
 
         break;
       }
+
       default:
         log("No process for this key.");
         break;
