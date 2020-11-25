@@ -33,7 +33,7 @@ $(() => {
     chrome.runtime.sendMessage({ action: "load", file }, function(response) {
       log("chrome.runtime.sendMessage", file, response);
       if (response && response.lastError) {
-        log("Failed to load file, file:", file, "error:", response.lastError.message);
+        log("init.js failed to load script, file:", file, "error:", response.lastError.message);
       }
     });
   };

@@ -30,7 +30,7 @@ const load = (request, sendResponse) => {
         }
       });
       sendResponse({
-        error: new Error("Failed to load file"),
+        error: new Error("eventPage.js failed to load file"),
         lastError
       });
     } else {
