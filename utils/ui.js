@@ -123,7 +123,7 @@ const wrapDownloadButtonToImage = (img, downloadHandler, config = null) => {
   const _img = new Image();
   _img.onload = function() {
     let borderColor = "#0f0"; // default color is green, means normal size
-    if (this.width < 400) {
+    if (this.width < 500) {
       // Change border color to red, mean img too small
       borderColor = "#c00";
     }
