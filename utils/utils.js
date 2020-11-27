@@ -2,7 +2,7 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
-/* exported triggerClick */
+/* exported triggerClick, eventHandlerGenerator */
 
 /**
  * Process the HTML element
@@ -79,6 +79,18 @@ const triggerClick = selector => {
   $a.click(); // not works
   $a.mousedown(); // not works
   $a.get(0) && $a.get(0).click(); // works
+};
+
+const eventHandlerGenerator = mapping => event => {
+  console.log("eventHandlerGenerator()", mapping, event, event.code);
+
+  const procedure = mapping[event.code];
+  if (!procedure) {
+    console.log("eventHandlerGenerator()", "No process for this key.");
+    return;
+  }
+
+  procedure();
 };
 
 console.log("utils/utils.js loaded.");

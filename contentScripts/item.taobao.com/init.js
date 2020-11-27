@@ -1,6 +1,6 @@
 /* global $, createLogger, replaceImgSrc, originalImage, downloadImage2 */
 /* global wrapDownloadButtonToImage, wrapImagesWithDownloadBtn, setOriginalImageUrl */
-/* global triggerClick */
+/* global triggerClick, eventHandlerGenerator */
 
 (function main() {
   const disabled = false;
@@ -70,21 +70,9 @@
     KeyR: processProductDetail
   };
 
-  const eventHandler = event => {
-    log("eventHandler", event, event.code);
-
-    const procedure = eventCodeProcedureMapping[event.code];
-    if (!procedure) {
-      log("No process for this key.");
-      return;
-    }
-
-    procedure();
-  };
-
   // KeyboardEvent.keyCode
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-  document.addEventListener("keyup", eventHandler);
+  document.addEventListener("keyup", eventHandlerGenerator(eventCodeProcedureMapping));
 
   log("end");
 }());
