@@ -1,5 +1,6 @@
 /* global $, dataAttrFlag, imgFlagAttrName, originalImage, replaceImgSrc */
 /* exported openPopup, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
+/* exported createPhotoList */
 
 /**
  * @file ui.js
@@ -86,11 +87,11 @@ const wrapDownloadButtonToImage = (img, downloadHandler, config = null) => {
   };
 
   function handlerIn() {
-    this.style.opacity = "1.0";
+    this.style.opacity = "1.0"; // eslint-disable-line no-invalid-this
   }
 
   function handlerOut() {
-    this.style.opacity = "0.3";
+    this.style.opacity = "0.3"; // eslint-disable-line no-invalid-this
   }
 
   const $button = $(`<span type="xx-download-button" class="xx-download-button" title="Download Image"></span>`)
@@ -150,6 +151,45 @@ const wrapImagesWithDownloadBtn = function(active, downloadHandler, images = doc
       }
     }
   }
+};
+
+const createPhotoList = (reviewSectionSelector, imgUrls, downloadImage2) => {
+  // Re-create root element for photo list
+  $(".xx-photo-list").remove();
+  $(reviewSectionSelector).append(
+    $("<div/>", {
+      // text: "Photo List",
+      class: "xx-photo-list",
+      // 7x160px=1120px, 7 img in 1 row
+      css: { width: "1400px", border: "1px solid" }
+    })
+  );
+
+  imgUrls.forEach((item, i) => {
+    $(".xx-photo-list").append(
+      $("<div/>", {
+        class: "xx-photo-item",
+        css: {
+          float: "left",
+          position: "relative",
+          margin: "5px",
+          height: "270px"
+        }
+      }).append(
+        $("<img/>", {
+          src: item.thumb400,
+          css: { width: "150px", cursor: "pointer" },
+          attr: {
+            [dataAttrFlag]: item.original
+          }
+        })
+      )
+    );
+  });
+
+  $(".xx-photo-list img").each((key, img) => {
+    wrapDownloadButtonToImage(img, downloadImage2);
+  });
 };
 
 console.log("utils/ui.js loaded.");

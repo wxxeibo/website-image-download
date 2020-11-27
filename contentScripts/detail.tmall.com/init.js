@@ -1,7 +1,13 @@
-/* global dataAttrFlag */
-/* global $, createLogger, downloadImage2, wrapImagesWithDownloadBtn, originalImage */
-/* global replaceImgSrc, wrapDownloadButtonToImage, setOriginalImageUrl */
-/* global triggerClick, eventHandlerGenerator */
+/* global $ */
+
+// logger.js
+/* global createLogger */
+// download.js
+/* global downloadImage2 */
+// utils.js
+/* global setOriginalImageUrl, triggerClick, eventHandlerGenerator, getImages */
+// ui.js
+/* global wrapImagesWithDownloadBtn, createPhotoList */
 
 // This script will be runned by chrome.tabs.executeScript in eventPage.js
 
@@ -35,25 +41,7 @@
   const processProductReview = () => {
     log("processProductReview()");
 
-    const imgUrls = [];
-
-    // Iterate each img in product review
-    $(".tm-m-photos-thumb img").each((key, img) => {
-      log("Process image:", img);
-      const $img = $(img);
-
-      if (!$img.attr(dataAttrFlag)) {
-        // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
-        // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg"
-        originalImage("_40x40.jpg", "")($img);
-        replaceImgSrc("_40x40.jpg", "_400x400.jpg")($img);
-      }
-
-      imgUrls.push({
-        original: $img.attr(dataAttrFlag),
-        thumb400: $img.attr("src")
-      });
-    });
+    const imgUrls = getImages(".tm-m-photos-thumb img");
 
     // $(".tm-col-master").css("width", "800px"); // 一行展示更多图片
     // $(".tm-rate-reply").remove(); // 删除店主评论文字部分（太占版面了），只看照片。
@@ -77,9 +65,10 @@
     /**
      * Re-layout to make the image review area larger.
      */
+    $("#bd").css("margin", "0px");
     $("#mainwrap")
-      .css("width", "1120px")
-      .css("margin-left", "0px");
+      .css("width", "1400px")
+      .css("margin", "0px");
     $(".col-sub").css("display", "none"); // hide left col
     $(".col-extra").css("display", "none"); // hide right col
 
@@ -89,42 +78,7 @@
 
     $("div.rate-grid > table").hide();
 
-    // Re-create root element for photo list
-    $(".xx-photo-list").remove();
-    $("div.rate-grid").append(
-      $("<div/>", {
-        // text: "Photo List",
-        class: "xx-photo-list",
-        // 7x160px=1120px, 7 img in 1 row
-        css: { width: "1120px", border: "1px solid" }
-      })
-    );
-
-    imgUrls.forEach((item, i) => {
-      $(".xx-photo-list").append(
-        $("<div/>", {
-          class: "xx-photo-item",
-          css: {
-            float: "left",
-            position: "relative",
-            margin: "5px",
-            height: "270px"
-          }
-        }).append(
-          $("<img/>", {
-            src: item.thumb400,
-            css: { width: "150px", cursor: "pointer" },
-            attr: {
-              [dataAttrFlag]: item.original
-            }
-          })
-        )
-      );
-    });
-
-    $(".xx-photo-list img").each((key, img) => {
-      wrapDownloadButtonToImage(img, downloadImage2);
-    });
+    createPhotoList("div.rate-grid", imgUrls, downloadImage2);
   };
 
   /**
@@ -197,6 +151,22 @@
   // KeyboardEvent.keyCode
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandlerGenerator(eventCodeProcedureMapping));
+
+  // Blur the radio button to avoid choosing radio button when click arrow key
+  setTimeout(() => {
+    $("#J_TabBar")
+      .children("li")
+      .eq(1)
+      .click(() => {
+        setTimeout(() => {
+          $(".rate-list-picture.rate-radio-group").click(() => {
+            setTimeout(() => {
+              $(".rate-list-picture.rate-radio-group").blur();
+            }, 200);
+          });
+        }, 1000);
+      });
+  }, 1000); // wait for 1s because children of "#J_TabBar" is none
 
   log("end");
 }());

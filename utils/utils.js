@@ -2,7 +2,7 @@
 /* global $, downloadImage2 */
 /* exported $, addDownloadButtonTo, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
-/* exported triggerClick, eventHandlerGenerator */
+/* exported triggerClick, eventHandlerGenerator, getImages */
 
 /**
  * Process the HTML element
@@ -91,6 +91,33 @@ const eventHandlerGenerator = mapping => event => {
   }
 
   procedure();
+};
+
+/**
+ * @param {string} imagesSelector e.g ".tb-revbd .review-details img"
+ */
+const getImages = imagesSelector => {
+  const imgUrls = [];
+
+  // Iterate each img in product review
+  $(imagesSelector).each((key, img) => {
+    console.log("getImages", "Process image:", img);
+    const $img = $(img);
+
+    if (!$img.attr(dataAttrFlag)) {
+      // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg_40x40.jpg"
+      // "//img.alicdn.com/bao/uploaded/i1/O1CN01NjCKv91purdU1nTSd_!!0-rate.jpg"
+      originalImage("_40x40.jpg", "")($img);
+      replaceImgSrc("_40x40.jpg", "_400x400.jpg")($img);
+    }
+
+    imgUrls.push({
+      original: $img.attr(dataAttrFlag),
+      thumb400: $img.attr("src")
+    });
+  });
+
+  return imgUrls;
 };
 
 console.log("utils/utils.js loaded.");
