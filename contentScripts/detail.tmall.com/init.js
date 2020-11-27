@@ -152,6 +152,7 @@
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandlerGenerator(eventCodeProcedureMapping));
 
+  // Jump to the "Review Photo" section automatically
   // Blur the radio button to avoid choosing radio button when click arrow key
   setTimeout(() => {
     $("#J_TabBar")
@@ -159,11 +160,8 @@
       .eq(1)
       .click(() => {
         setTimeout(() => {
-          $(".rate-list-picture.rate-radio-group").click(() => {
-            setTimeout(() => {
-              $(".rate-list-picture.rate-radio-group").blur();
-            }, 200);
-          });
+          $(".rate-list-picture.rate-radio-group").click();
+          $(".rate-list-picture.rate-radio-group").blur();
         }, 1000);
       });
   }, 1000); // wait for 1s because children of "#J_TabBar" is none
