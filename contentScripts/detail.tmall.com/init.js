@@ -166,6 +166,8 @@
       });
   }, 1000); // wait for 1s because children of "#J_TabBar" is none
 
+  // naturalWidth
+
   log("end");
 }());
 

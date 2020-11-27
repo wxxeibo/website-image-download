@@ -114,6 +114,25 @@ const wrapDownloadButtonToImage = (img, downloadHandler, config = null) => {
     .parent()
     .append($previewBtn)
     .append($button);
+  // .append(
+  //   $(`<img src="${$(img).attr(dataAttrFlag)}" />`)
+  //     .css("width", "1px")
+  // )
+
+  // Load original file to get image real size
+  const _img = new Image();
+  _img.onload = function() {
+    let borderColor = "#0f0"; // default color is green, means normal size
+    if (this.width < 400) {
+      // Change border color to red, mean img too small
+      borderColor = "#c00";
+    }
+    $(img)
+      .parent()
+      .css("border-color", borderColor)
+      .append(`<span class="xx-img-size-title">${this.width}x${this.height}</span>`);
+  };
+  _img.src = $(img).attr(dataAttrFlag);
 
   if (config) {
     // Add the original image URL to the data attribute
