@@ -66,7 +66,8 @@
   const eventCodeProcedureMapping = {
     KeyL: loadLargePic,
     ArrowLeft: turnToPreviousPage,
-    ArrowRight: turnToNextPage
+    ArrowRight: turnToNextPage,
+    KeyR: processProductDetail
   };
 
   const eventHandler = event => {

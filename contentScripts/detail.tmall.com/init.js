@@ -181,41 +181,29 @@
     wrapImagesWithDownloadBtn(true, downloadImage2, document.querySelectorAll("#description img"));
   };
 
+  const removeDownloadButton = () => {
+    // Remove the download button
+    wrapImagesWithDownloadBtn(false, downloadImage2, document.querySelectorAll("#description img"));
+  };
+
+  const eventCodeProcedureMapping = {
+    KeyL: processProductReview,
+    ArrowLeft: turnToPreviousPage,
+    ArrowRight: turnToNextPage,
+    KeyR: processProductDetail,
+    KeyT: removeDownloadButton
+  };
+
   const eventHandler = event => {
     log("eventHandler", event, event.code);
 
-    switch (event.code) {
-      case "KeyL":
-        processProductReview();
-        break;
-
-      case "KeyR":
-        processProductDetail();
-
-        break;
-      case "KeyT":
-        // Remove the download button
-        wrapImagesWithDownloadBtn(false, downloadImage2, document.querySelectorAll("#description img"));
-        break;
-
-      case "ArrowLeft": {
-        log("ArrowLeft pressed");
-        turnToPreviousPage();
-
-        break;
-      }
-
-      case "ArrowRight": {
-        log("ArrowRight pressed");
-        turnToNextPage();
-
-        break;
-      }
-
-      default:
-        log("No process for this key.");
-        break;
+    const procedure = eventCodeProcedureMapping[event.code];
+    if (!procedure) {
+      log("No process for this key.");
+      return;
     }
+
+    procedure();
   };
 
   // KeyboardEvent.keyCode
