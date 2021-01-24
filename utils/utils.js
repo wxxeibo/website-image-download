@@ -3,6 +3,7 @@
 /* exported $, addDownloadButtonTo, wrapImagesWithDownloadBtn */
 /* exported replaceImgSrc, originalImage, setOriginalImageUrl, dataAttrFlag */
 /* exported triggerClick, eventHandlerGenerator, getImages */
+/* exported delay */
 
 /**
  * Process the HTML element
@@ -119,5 +120,13 @@ const getImages = imagesSelector => {
 
   return imgUrls;
 };
+
+// Delay in ms
+const delay = ms =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
 
 console.log("utils/utils.js loaded.");

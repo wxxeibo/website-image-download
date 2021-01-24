@@ -5,7 +5,7 @@
 // download.js
 /* global downloadImage2 */
 // utils.js
-/* global setOriginalImageUrl, triggerClick, eventHandlerGenerator, getImages */
+/* global setOriginalImageUrl, triggerClick, eventHandlerGenerator, getImages, delay */
 // ui.js
 /* global wrapImagesWithDownloadBtn, createPhotoList */
 
@@ -152,19 +152,30 @@
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandlerGenerator(eventCodeProcedureMapping));
 
-  // Jump to the "Review Photo" section automatically
-  // Blur the radio button to avoid choosing radio button when click arrow key
-  setTimeout(() => {
+  // Jump to the "Review Photo" section and load large pic
+  async function run() {
+    // wait for 1s because children of "#J_TabBar" is none
+    await delay(1000);
+
+    // When clicking tab whose name is "累计评价" (from "商品详情")
     $("#J_TabBar")
       .children("li")
       .eq(1)
-      .click(() => {
-        setTimeout(() => {
-          $(".rate-list-picture.rate-radio-group").click();
-          $(".rate-list-picture.rate-radio-group").blur();
-        }, 1000);
+      .click(async () => {
+        await delay(1000);
+
+        // Click "图片" radio-button (from "全部")
+        $(".rate-list-picture.rate-radio-group").click();
+
+        // lose focus from  tabs/radio-buttons, so we could use LEFT/RIGHT key for pagination
+        document.activeElement.blur();
+
+        await delay(1000);
+
+        processProductReview();
       });
-  }, 1000); // wait for 1s because children of "#J_TabBar" is none
+  }
+  run();
 
   // naturalWidth
 

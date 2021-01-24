@@ -196,6 +196,7 @@ const createPhotoList = (reviewSectionSelector, imgUrls, downloadImage2) => {
         }
       }).append(
         $("<img/>", {
+          class: "xx-photo-item-thumb",
           src: item.thumb400,
           css: { width: "150px", cursor: "pointer" },
           attr: {

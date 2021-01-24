@@ -2,10 +2,11 @@
 
 module.exports = {
   parserOptions: {
-    ecmaVersion: 6
+    ecmaVersion: 2017
   },
   env: {
-    browser: true
+    browser: true,
+    es6: true
   },
   rules: {
     // the rules below should be sorted in a same way they are sorted on http://eslint.org/docs/rules page
@@ -58,7 +59,14 @@ module.exports = {
     "new-cap": [
       0,
       {
-        capIsNewExceptions: ["$.Deferred", "$.Event", "CodeMirror.Pos", "Immutable.Map", "Immutable.List", "JSLINT"]
+        capIsNewExceptions: [
+          "$.Deferred",
+          "$.Event",
+          "CodeMirror.Pos",
+          "Immutable.Map",
+          "Immutable.List",
+          "JSLINT"
+        ]
       }
     ],
     "new-parens": 2,
