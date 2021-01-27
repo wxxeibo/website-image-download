@@ -55,6 +55,24 @@ $(() => {
     loadProcessScripts(file);
   };
 
+  /**
+   * @param {Function} callback Call it after DB loaded
+   * @return {Promise<Object>}
+   */
+  const loadDb = (callback = () => {}) => {
+    // https://dev.to/aussieguy/reading-files-in-a-chrome-extension--2c03
+    // Need config "web_accessible_resources" field in manifest.json
+    const url = chrome.runtime.getURL("data/jav-db.json");
+    return fetch(url)
+      .then(response => response.json()) //assuming file contains json
+      .then(json => {
+        log("db loaded");
+        window.db = json;
+        callback(json);
+        return json;
+      });
+  };
+
   const eventHandler = event => {
     switch (event.code) {
       case "KeyL":
@@ -62,13 +80,14 @@ $(() => {
         break;
     }
   };
-
   // KeyboardEvent.keyCode
   // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
   document.addEventListener("keyup", eventHandler);
 
-  // Load init scripts of the current website
-  loadInitScriptByHostname();
+  loadDb(() => {
+    // Load init scripts of the current website
+    loadInitScriptByHostname();
+  });
 
   log("init.js loaded.");
 });

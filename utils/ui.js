@@ -1,6 +1,6 @@
 /* global $, dataAttrFlag, imgFlagAttrName, originalImage, replaceImgSrc */
 /* exported openPopup, wrapDownloadButtonToImage, wrapImagesWithDownloadBtn */
-/* exported createPhotoList */
+/* exported createPhotoList, checkJavCodeAndShowPopup */
 
 /**
  * @file ui.js
@@ -209,6 +209,24 @@ const createPhotoList = (reviewSectionSelector, imgUrls, downloadImage2) => {
 
   $(".xx-photo-list img").each((key, img) => {
     wrapDownloadButtonToImage(img, downloadImage2);
+  });
+};
+
+const checkJavCodeAndShowPopup = () => {
+  const matchResults = document.title.match(/\w+-\d+/);
+  if (!matchResults) {
+    console.log("not found code in title");
+    return;
+  }
+  const javCode = matchResults[0];
+  // openPopup(javCode, 0);
+
+  let content = `== Found Code ==<br/>JAV Code: ${javCode}<br/>`;
+  window.db.data.forEach(item => {
+    if (item.code === javCode) {
+      content += `== Found in DB ==<br/>Code: ${javCode}, Categories: ${item.categories}<br/>`;
+      openPopup(content, 0);
+    }
   });
 };
 
