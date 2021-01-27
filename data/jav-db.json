@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "Search JAV code website": {
+      "jav.guru": "https://jav.guru/?s=IPX-535",
+      "onejav.com": "https://onejav.com/search/IPX-535"
+    }
+  },
   "data": [
     {
       "code": "WANZ-983",
@@ -6,7 +12,12 @@
       "maker": { "name": "WANZ FACTORY", "website": "https://www.wanz-factory.com/" }
     },
     {
-      "code": "IPX-535"
+      "code": "IPX-535",
+      "categories": ["Stockings"],
+      "tags": ["黑丝"],
+      "actress": ["Momo Sakura (桜空もも)", "Sakura Momo"],
+      "studio": "IPX",
+      "maker": { "name": "IPX", "website": "" }
     }
   ]
 }
