@@ -31,10 +31,16 @@ $(() => {
     log("loadProcessScripts(), file:", file);
     // eventPage.js will execute content scripts
     chrome.runtime.sendMessage({ action: "load", file }, function(response) {
-      log("chrome.runtime.sendMessage end, file:", file, "response:", response);
+      log("chrome.runtime.sendMessage end, file:", file, ", response:", response);
       if (response && (response.lastError || response.error)) {
-        console.error("Failed to execute content script, file:", file, "response:", response);
-        log("init.js failed to load script, file:", file, "error:", response.lastError.message);
+        log(
+          "init.js failed to load script, file:",
+          file,
+          ", response.lastError.message:",
+          response.lastError.message,
+          ", response:",
+          response
+        );
       }
     });
   };
