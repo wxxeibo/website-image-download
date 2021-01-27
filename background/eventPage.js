@@ -1,5 +1,5 @@
 /**
- * The devetPage.js is defined in: https://developer.chrome.com/extensions/event_pages
+ * The eventPage.js is defined in: https://developer.chrome.com/extensions/event_pages
  * How to send message from content script to extension: https://developer.chrome.com/extensions/messaging
  */
 
@@ -8,14 +8,28 @@
 const log = (...args) => console.log("[DEBUG]", "[background/eventPage.js]", ...args);
 
 /**
+ * Execute a content script
  * @param {Object} request
  * @param {Function} sendResponse
  */
 const load = (request, sendResponse) => {
   log("load()", request /*, sendResponse */);
 
-  const finishExec = result => {
-    log("load()", request, "finishExec()", result);
+  /**
+   * @param {Array} results An array with "the result of the script" from each tab/frame in which the script is run
+   * Put below code at the end of script file to define script return result:
+   * ```js
+   * const result = "jav.sh/init.js loaded";
+   * result;
+   * ```
+   * An example of value of results
+   * ```
+   * ["jav.sh/init.js loaded"]
+   * ```
+   * @see https://stackoverflow.com/a/41578299
+   */
+  const finishExec = results => {
+    log("load()", request, "finishExec()", results);
     const lastError = chrome.runtime.lastError;
     log("load()", request, "finishExec()", "lastError:", lastError, JSON.stringify(lastError));
     if (lastError) {
@@ -31,10 +45,14 @@ const load = (request, sendResponse) => {
       });
       sendResponse({
         error: new Error("eventPage.js failed to load file"),
-        lastError
+        lastError,
+        "executeScript() => results": results
       });
     } else {
-      sendResponse(null);
+      // null means file loaded successfully
+      sendResponse({
+        "executeScript() => results": results
+      });
     }
   };
 

@@ -29,10 +29,11 @@ $(() => {
    */
   const loadProcessScripts = file => {
     log("loadProcessScripts(), file:", file);
-    // eventPage.js
+    // eventPage.js will execute content scripts
     chrome.runtime.sendMessage({ action: "load", file }, function(response) {
-      log("chrome.runtime.sendMessage", file, response);
-      if (response && response.lastError) {
+      log("chrome.runtime.sendMessage end, file:", file, "response:", response);
+      if (response && (response.lastError || response.error)) {
+        console.error("Failed to execute content script, file:", file, "response:", response);
         log("init.js failed to load script, file:", file, "error:", response.lastError.message);
       }
     });
@@ -69,5 +70,5 @@ $(() => {
   // Load init scripts of the current website
   loadInitScriptByHostname();
 
-  log("loaded.");
+  log("init.js loaded.");
 });
