@@ -11,8 +11,8 @@ $(() => {
   log("start");
 
   const eventHandler = event => {
-    if (event.code === "KeyD") {
-      log("D pressed");
+    if (event.code === "KeyD" || event.code === "KeyP") {
+      log("D or P pressed");
 
       let imgFullUrl = "";
 
@@ -43,7 +43,11 @@ $(() => {
         return;
       }
 
-      downloadImage2(imgFullUrl);
+      if (event.code === "KeyD") {
+        downloadImage2(imgFullUrl);
+      } else if (event.code === "KeyP") {
+        window.open(imgFullUrl);
+      }
     }
   };
 
